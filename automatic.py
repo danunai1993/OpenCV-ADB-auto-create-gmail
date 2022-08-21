@@ -21,3 +21,27 @@ except:
     print(colored('[X] No connection!! pls Connect your device', 'red'))
 
 
+def save():
+    with open("screenshot.png", "wb") as f:
+        f.write(device.screencap())
+        time.sleep(0.3)
+        print(colored("[/] Screenshot saved!!",'green'))
+
+def check(imagecheck):
+    item = cv2.imread(imagecheck)
+    screen = cv2.imread("screenshot.png")
+    # cv2.imshow('',item)
+    # cv2.waitKey()
+    result = cv2.matchTemplate(item,screen,cv2.TM_SQDIFF_NORMED)
+    print(result)
+    loc_cut = np.where(result<=0.03)
+    loc_xy = list(zip(*loc_cut[::-1]))
+    print(loc_xy)
+    print(colored(f'[INFO] Found {len(loc_xy)}', 'green'))
+    for i in loc_xy:
+        device.shell(f'input tap {i[0]} {i[1]}')
+        print(colored(f'[INFO] Tap {i[0]} {i[1]}', 'green'))
+        return
+
+save()
+check('gmail.png')
