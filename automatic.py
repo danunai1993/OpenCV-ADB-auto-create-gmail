@@ -24,24 +24,26 @@ except:
 def save():
     with open("screenshot.png", "wb") as f:
         f.write(device.screencap())
-        time.sleep(0.3)
+        time.sleep(1)
         print(colored("[/] Screenshot saved!!",'green'))
 
-def check(imagecheck):
-    item = cv2.imread(imagecheck)
+def check():   
+    print(colored("[INFO] Checking Screenshot",'green'))
     screen = cv2.imread("screenshot.png")
-    # cv2.imshow('',item)
-    # cv2.waitKey()
-    result = cv2.matchTemplate(item,screen,cv2.TM_SQDIFF_NORMED)
-    print(result)
-    loc_cut = np.where(result<=0.03)
-    loc_xy = list(zip(*loc_cut[::-1]))
-    print(loc_xy)
-    print(colored(f'[INFO] Found {len(loc_xy)}', 'green'))
-    for i in loc_xy:
-        device.shell(f'input tap {i[0]} {i[1]}')
-        print(colored(f'[INFO] Tap {i[0]} {i[1]}', 'green'))
-        return
+    item = cv2.imread("gmail2.png")
 
+    h, w, _ = item.shape
+
+    res = cv2.matchTemplate(screen, item, cv2.TM_CCOEFF)
+    loc_cut = np.where(res <= 0.03)
+    loc_xy = list(zip(*loc_cut[::-1]))
+    bottom_right = (top_left[0] + w, top_left[1] + h)
+
+    cv2.rectangle(screen, top_left, bottom_right, (0, 0, 255), 2)
+
+    resize = cv2.resize(screen, (540, 960), fx=0.5, fy=0.5)
+    cv2.imshow("img", resize)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 save()
-check('gmail.png')
+check()

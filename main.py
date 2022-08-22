@@ -23,7 +23,7 @@ def check(imagecheck):
     screen = cv2.imread("screenshot.png")
     # cv2.imshow('',item)
     # cv2.waitKey()
-    result = cv2.matchTemplate(item,screen,cv2.TM_SQDIFF_NORMED)
+    result = cv2.matchTemplate(screen,item,cv2.TM_SQDIFF_NORMED)
     loc_cut = numpy.where(result<=0.03)
     loc_xy = list(zip(*loc_cut[::-1]))
     print(loc_xy)
