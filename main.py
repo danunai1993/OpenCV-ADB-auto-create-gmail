@@ -33,4 +33,4 @@ def check(imagecheck):
         return
 
 save()
-check('gmail.png')
+check('google.jpg')
