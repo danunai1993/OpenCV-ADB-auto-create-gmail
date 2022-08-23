@@ -2,11 +2,12 @@ import numpy as np
 import cv2 
 
 img = cv2.resize(cv2.imread("screenshotphone.png",0), (0, 0), fx=0.4, fy=0.4)
-template = cv2.resize(cv2.imread("addaccount.png",0), (0, 0), fx=0.8, fy=0.8)
+template = cv2.resize(cv2.imread("listbar.png",0), (0, 0), fx=0.8, fy=0.8)
 
 """ method ที่ตรวจจับเจอรูปภาพ
 xy
 950 163
+listbar.png     TM_CCOEFF,TM_CCOEFF_NORMED,TM_CCORR_NORMED,TM_SQDIFF,TM_SQDIFF_NORMED
 gmail.png       TM_CCOEFF,TM_CCOEFF_NORMED,TM_CCORR_NORMED,TM_SQDIFF,TM_SQDIFF_NORMED
 listgmail.png   TM_CCOEFF_NORMED,TM_CCORR_NORMED,TM_SQDIFF,TM_SQDIFF_NORMED
 addaccount.png  TM_CCOEFF,TM_CCOEFF_NORMED,TM_CCORR_NORMED,TM_SQDIFF,TM_SQDIFF_NORMED
@@ -28,7 +29,9 @@ for method in methods:
         location = max_loc
 
     bottom_right = (location[0] + w , location[1] + h)
+    print(bottom_right)
     color = (255, 0, 0)
+    print(cv2.rectangle(img2, location, bottom_right, (0,0,255), 3))
     cv2.rectangle(img2, location, bottom_right, (0,0,255), 3)
     cv2.imshow('Match', img2)
     cv2.waitKey(0)
