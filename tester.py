@@ -1,10 +1,12 @@
 import numpy as np
 import cv2 
 
-img = cv2.resize(cv2.imread("screenshot.png",0), (0, 0), fx=0.4, fy=0.4)
-template = cv2.resize(cv2.imread("listgmail.png",0), (0, 0), fx=0.8, fy=0.8)
+img = cv2.resize(cv2.imread("screenshotphone.png",0), (0, 0), fx=0.4, fy=0.4)
+template = cv2.resize(cv2.imread("addaccount.png",0), (0, 0), fx=0.8, fy=0.8)
 
 """ method ที่ตรวจจับเจอรูปภาพ
+xy
+950 163
 gmail.png       TM_CCOEFF,TM_CCOEFF_NORMED,TM_CCORR_NORMED,TM_SQDIFF,TM_SQDIFF_NORMED
 listgmail.png   TM_CCOEFF_NORMED,TM_CCORR_NORMED,TM_SQDIFF,TM_SQDIFF_NORMED
 addaccount.png  TM_CCOEFF,TM_CCOEFF_NORMED,TM_CCORR_NORMED,TM_SQDIFF,TM_SQDIFF_NORMED

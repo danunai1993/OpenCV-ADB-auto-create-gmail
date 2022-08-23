@@ -26,7 +26,7 @@ def check():
     #templatex_gray = cv2.cvtColor(templatex, cv2.COLOR_RGB2GRAY)
     h, w, _ = templatex.shape
 
-    res = cv2.matchTemplate(img,templatex,cv2.TM_CCOEFF)
+    res = cv2.matchTemplate(img,templatex,cv2.TM_SQDIFF_NORMED)
     print(res)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
     top_left = max_loc
