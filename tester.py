@@ -1,8 +1,5 @@
 import numpy as np
-import cv2 
-
-img = cv2.resize(cv2.imread("screenshotphone.png",0), (0, 0), fx=0.4, fy=0.4)
-template = cv2.resize(cv2.imread("listbar.png",0), (0, 0), fx=0.8, fy=0.8)
+import cv2 ,time
 
 """ method ที่ตรวจจับเจอรูปภาพ
 xy
@@ -14,7 +11,8 @@ addaccount.png  TM_CCOEFF,TM_CCOEFF_NORMED,TM_CCORR_NORMED,TM_SQDIFF,TM_SQDIFF_N
 google2.png     TM_CCOEFF_NORMED,TM_SQDIFF,TM_SQDIFF_NORMED
 
 """
-
+img = cv2.resize(cv2.imread("tester.png",0), (0, 0), fx=0.4, fy=0.4)
+template = cv2.resize(cv2.imread("makeacc.png",0), (0, 0), fx=0.8, fy=0.8)
 h, w = template.shape
 methods = [ cv2.TM_CCOEFF, cv2.TM_CCOEFF_NORMED, cv2.TM_CCORR,
             cv2.TM_CCORR_NORMED, cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]

@@ -6,7 +6,7 @@ devices = client.devices()
 device = devices[0]
 print(f'Device: {device}')
 
-with open("screenshot.png", "wb") as f:
+with open("tester.png", "wb") as f:
     f.write(device.screencap())
     time.sleep(0.3)
     print("Screenshot saved")

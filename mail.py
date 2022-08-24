@@ -35,8 +35,105 @@ def save():
 
 
 
-images = ["listbar.png","addaccount.png"]
-def check(images):
+images = ["listbar.png","addaccount.png","google2.png","makeaccbtn.png","makeacc.png"]
+def checklistbar(images):
+        img = cv2.resize(cv2.imread("screenshotphone.png",0), (0, 0), fx=0.4, fy=0.4)
+        template = cv2.resize(cv2.imread(images,0), (0, 0), fx=0.8, fy=0.8)
+        h,w = template.shape
+        img2 = img.copy()
+        
+        if images == "makeacc.png": 
+            print(colored("[/] cv2.TM_CCOEFF!!",'green'))
+            result = cv2.matchTemplate(img2, template, cv2.TM_CCOEFF)
+            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+            loc_xy = (max_loc[0]+ w, max_loc[1]+h)
+            print(loc_xy)
+        else:
+            print(colored("[/] cv2.TM_SQDIFF_NORMED!!",'green'))
+            result = cv2.matchTemplate(img2, template, cv2.TM_SQDIFF_NORMED)
+            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+            loc_xy = (min_loc[0]+ w, min_loc[1]+h)
+            print(loc_xy)
+        
+        
+
+        
+        
+        # print(cv2.rectangle(img2, min_loc, loc_xy, (0,0,255), 3))
+        # cv2.rectangle(img2, min_loc, loc_xy, (0,0,255), 3)
+        # cv2.imshow('Match', img2)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
+        if images == "listbar.png":
+            print(colored("[/] Running listbar.png!!",'green'))
+            if loc_xy == (63, 71):
+                print(colored("[/] working listbar.png!!",'green'))
+                time.sleep(.5)
+                device.shell(f"input tap 950 163")
+                time.sleep(.5)
+                device.shell(f"input swipe 376 1950 376 336 1500")
+                time.sleep(2.5)
+            else:
+                print(colored("[X] check listbar.png!!",'red'))
+                return
+
+        elif images == "addaccount.png":
+            print(colored("[/] Running addaccount.png!!",'green'))
+            if loc_xy == (76, 730):
+                print(colored("[/] working addaccount.png!!",'green'))
+                device.shell(f"input tap 350 1726")
+                time.sleep(.5)
+            else:
+                print(colored("[X] no check addaccount.png!!",'red'))
+                return
+        elif images == "google2.png":
+            print(colored("[/] Running google2.png!!",'green'))
+            if loc_xy == (58, 282):
+                print(colored("[/] working google2.png!!",'green'))
+                device.shell(f"input tap 267 662")
+                time.sleep(4)
+                device.shell(f"input text '272003'")
+                time.sleep(6)
+            else:
+                print(colored("[X] no check google2.png!!",'red'))
+                return
+        elif images == "makeaccbtn.png":
+            print(colored("[/] Running makeaccbtn.png!!",'green'))
+            if loc_xy == (411, 838):
+                print(colored("[/] working makeaccbtn.png!!",'green'))
+                device.shell(f"input tap 150 2026")
+                time.sleep(1.5)
+                device.shell(f"input tap 198 1728")
+                time.sleep(1.5)
+            else:
+                print(colored("[X] no check makeaccbtn.png!!",'red'))
+                return
+        elif images == "makeacc.png":
+            print(colored("[/] Running makeacc.png!!",'green'))
+            if loc_xy == (331, 225):
+                print(colored("[/] working makeacc.png!!",'green'))
+                device.shell(f"input tap 210 736")#กดชื่อ
+                time.sleep(1.5)
+                device.shell(f"input text {getname}")
+                time.sleep(1.5)
+                device.shell(f"input tap 168 971")#กดนามสกุล
+                time.sleep(1.5)
+                device.shell(f"input text {getlast}") 
+                time.sleep(1.5)
+                device.shell(f"input tap 350 1131")#กดที่วางในจอ
+                time.sleep(1.5)
+                device.shell(f"input tap 872 2019")#กดปุ่มถัดไป
+                time.sleep(2.5)
+            else:
+                print(colored("[X] no check makeacc.png!!",'red'))
+                return        
+        
+
+        
+        
+
+
+def checkaddaccount(images):
         img = cv2.imread("screenshotphone.png",0)
         template = cv2.imread(images,0)
         h,w = template.shape
@@ -47,73 +144,23 @@ def check(images):
         listbar = (min_loc[0]+ w, min_loc[1]+h)
         print(listbar)
         
-        device.shell(f"input tap 950 163")
-        time.sleep(.5)
-        device.shell(f"input swipe 376 1950 376 336 1500")
-        time.sleep(.5)
-        device.shell(f"input tap 350 1726")
-        time.sleep(.5)
-        device.shell(f"input tap 267 662")
-        time.sleep(3.5)
-        device.shell(f"input text '272003'")
-        time.sleep(6)
-        device.shell(f"input tap 150 2026")
-        time.sleep(1.5)
-        device.shell(f"input tap 198 1728")
-        time.sleep(1.5)
-        device.shell(f"input tap 210 736")#กดชื่อ
-        time.sleep(1.5)
-        device.shell(f"input text {getname}")
-        time.sleep(1.5)
-        device.shell(f"input tap 168 971")#กดนามสกุล
-        time.sleep(1.5)
-        device.shell(f"input text {getlast}") 
-        time.sleep(1.5)
-        device.shell(f"input tap 350 1131")
-        time.sleep(1.5)
-        device.shell(f"input tap 872 2019")
-        time.sleep(1.5)
-        device.shell(f"input tap 161 721")
-        time.sleep(1.5)       
-        device.shell(f"input text {day}")
-        time.sleep(1.5)
-        device.shell(f"input tap 514 729")
-        time.sleep(1.5)
-        device.shell(f"input tap 226 708")
-        time.sleep(1.5)
-        device.shell(f"input tap 803 726")
-        time.sleep(1.5)
-        device.shell(f"input text {year}")
-        time.sleep(1.5)
-        device.shell(f"input tap 302 941")
-        time.sleep(1.5)
-        device.shell(f"input tap 267 1193")
-        time.sleep(1.5)
-        device.shell(f"input tap 879 2021")
-        time.sleep(1.5)
-        device.shell(f"input tap 256 1036")
-        time.sleep(1.5)       
-        device.shell(f"input tap 184 1266")
-        time.sleep(1.5)
-        device.shell(f"input text {getname}{word}{day}")
-        print(getname,word,day)
-        time.sleep(1.5)
-        device.shell(f"input tap 865 1126")  
-        time.sleep(1.5)
-        device.shell(f"input text {password}")
-        print(password)
-        time.sleep(1.5)
-        device.shell(f"input tap 872 2026")  
+        
         
 
-        txt = open("gmail.txt","a")
-        user = getname + word + '{day}' + "@gmail.com || " + password + "\n"
-        txt.write(user)
-        print(user)
-        txt.close()
+       
 
 save()
-check(images[0])   
+checklistbar(images[0]) 
+save() 
+checklistbar(images[1])  
+save() 
+checklistbar(images[2]) 
+save() 
+checklistbar(images[3]) 
+save() 
+checklistbar(images[4]) 
+  
+
      
     
 
