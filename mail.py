@@ -36,7 +36,9 @@ def save():
 
 
 images = ["listbar.png","addaccount.png","google2.png","makeaccbtn.png","makeacc.png",
-            "dateacc.png","makeuser.png","makepass.png"]
+            "dateacc.png","makeuser.png","makepass.png","phonenum.png","checkconfirm.png",
+            "checkprivate.png"]
+
 def checklistbar(images):
         img = cv2.resize(cv2.imread("screenshotphone.png",0), (0, 0), fx=0.4, fy=0.4)
         template = cv2.resize(cv2.imread(images,0), (0, 0), fx=0.8, fy=0.8)
@@ -44,28 +46,24 @@ def checklistbar(images):
         img2 = img.copy()
         
         #if images == "makeacc.png" or images == "dateacc.png" or images == "makeuser.png": 
-        if images in ["makeacc.png","dateacc.png","makeuser.png","makepass.png"]:
+        if images in ["makeacc.png","dateacc.png","makeuser.png","makepass.png","phonenum.png","checkconfirm.png","checkprivate.png"]:
             print(colored("[/] cv2.TM_CCOEFF!!",'green'))
             result = cv2.matchTemplate(img2, template, cv2.TM_CCOEFF)
             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
             loc_xy = (max_loc[0]+ w, max_loc[1]+h)
-            print(loc_xy)
+            #print(loc_xy)
         else:
             print(colored("[/] cv2.TM_SQDIFF_NORMED!!",'green'))
             result = cv2.matchTemplate(img2, template, cv2.TM_SQDIFF_NORMED)
             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
             loc_xy = (min_loc[0]+ w, min_loc[1]+h)
-            print(loc_xy)
-        
-        
-
-        
-        
+            #print(loc_xy)
         # print(cv2.rectangle(img2, min_loc, loc_xy, (0,0,255), 3))
         # cv2.rectangle(img2, min_loc, loc_xy, (0,0,255), 3)
         # cv2.imshow('Match', img2)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
+
         if images == "listbar.png":
             print(colored("[/] Running listbar.png!!",'green'))
             if loc_xy == (63, 71):
@@ -84,7 +82,7 @@ def checklistbar(images):
             if loc_xy == (76, 730):
                 print(colored("[/] working addaccount.png!!",'green'))
                 device.shell(f"input tap 350 1726")
-                time.sleep(.5)
+                time.sleep(1.5)
             else:
                 print(colored("[X] no check addaccount.png!!",'red'))
                 return
@@ -95,7 +93,7 @@ def checklistbar(images):
                 device.shell(f"input tap 267 662")
                 time.sleep(4)
                 device.shell(f"input text '272003'")
-                time.sleep(6)
+                time.sleep(9.5)
             else:
                 print(colored("[X] no check google2.png!!",'red'))
                 return
@@ -181,10 +179,44 @@ def checklistbar(images):
                 device.shell(f"input tap 235 1119")#กดที่ว่าง
                 time.sleep(1.5)
                 device.shell(f"input tap 872 2026") #กดถัดไป 
+                time.sleep(1.5)
             else:
                 print(colored("[X] no check makeuser.png!!",'red'))
                 return          
-
+        elif images == "phonenum.png":
+            print(colored("[/] Running phonenum.png!!",'green'))
+            if loc_xy == (375, 188):
+                print(colored("[/] working phonenum.png!!",'green'))
+                device.shell(f"input swipe 376 1950 376 336 1500")
+                time.sleep(.5)
+                device.shell(f"input tap 101 2030") #กดข้าม 
+                time.sleep(1.5)
+            else:
+                print(colored("[X] no check phonenum.png!!",'red'))
+                return 
+        elif images == "checkconfirm.png":
+            print(colored("[/] Running checkconfirm.png!!",'green'))
+            if loc_xy == (412, 184):
+                print(colored("[/] working checkconfirm.png!!",'green'))
+                device.shell(f"input tap 856 2026") #กดถัดไป
+                time.sleep(1.5)
+            else:
+                print(colored("[X] no check checkconfirm.png!!",'red'))
+                return
+        elif images == "checkprivate.png":
+            print(colored("[/] Running checkprivate.png!!",'green'))
+            if loc_xy == (378, 187):
+                print(colored("[/] working checkprivate.png!!",'green'))
+                device.shell(f"input swipe 376 1950 376 336 1500")
+                time.sleep(.5)
+                device.shell(f"input swipe 376 2000 376 336 1500")
+                time.sleep(.5)
+                device.shell(f"input tap 816 2021") #กดฉันยอมรับ 
+                time.sleep(1.5)
+                #หลังกด รอ 1นาที40วิ
+            else:
+                print(colored("[X] no check checkprivate.png!!",'red'))
+                return 
 save()
 checklistbar(images[0]) 
 save() 
@@ -201,6 +233,12 @@ save()
 checklistbar(images[6]) 
 save() 
 checklistbar(images[7])
+save() 
+checklistbar(images[8])
+save() 
+checklistbar(images[9])
+save() 
+checklistbar(images[10])
   
 
      
