@@ -21,8 +21,8 @@ words = [
 passwords = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(14))
         
 word = random.choice(words)         #สุ่มคำ
-getname = names.get_first_name()    #สร้างชื่อ
-getlast = names.get_last_name()
+getname = names.get_first_name()+"xz"    #สร้างชื่อ
+getlast = names.get_last_name()+"er"
 day = random.randint(0,28)          #สุ่มวันเกิด
 year = random.randint(1990,2000)    #สุ่มปีเกิด
 password = passwords                #สุ่มรหัส
@@ -36,8 +36,8 @@ def save():
 
 
 images = ["listbar.png","addaccount.png","google2.png","makeaccbtn.png","makeacc.png",
-            "dateacc.png","makeuser.png","makepass.png","phonenum.png","checkconfirm.png",
-            "checkprivate.png"]
+            "dateacc.png","makeuser.png","inputacc.png","makepass.png","phonenum.png",
+            "checkconfirm.png","checkprivate.png"]
 
 def checklistbar(images):
         img = cv2.resize(cv2.imread("screenshotphone.png",0), (0, 0), fx=0.4, fy=0.4)
@@ -46,7 +46,9 @@ def checklistbar(images):
         img2 = img.copy()
         
         #if images == "makeacc.png" or images == "dateacc.png" or images == "makeuser.png": 
-        if images in ["makeacc.png","dateacc.png","makeuser.png","makepass.png","phonenum.png","checkconfirm.png","checkprivate.png"]:
+        if images in ["makeacc.png","dateacc.png","makeuser.png","makepass.png",
+                        "phonenum.png","checkconfirm.png","checkprivate.png",
+                        "inputacc.png"]:
             print(colored("[/] cv2.TM_CCOEFF!!",'green'))
             result = cv2.matchTemplate(img2, template, cv2.TM_CCOEFF)
             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
@@ -169,6 +171,19 @@ def checklistbar(images):
             else:
                 print(colored("[X] no check makeuser.png!!",'red'))
                 return
+        elif images == "inputacc.png":
+            print(colored("[/] Running inputacc.png!!",'green'))
+            if loc_xy == (313, 182):
+                print(colored("[/] working inputacc.png!!",'green'))
+                format = getname+word+str(day)
+                device.shell(f"input text {format}")#กรอกgmail
+                print(format)
+                time.sleep(1.5)
+                device.shell(f"input tap 865 1126")  #กดถัดไป
+                time.sleep(1.5)
+            else:
+                print(colored("[X] no check inputacc.png!!",'red'))
+                return
         elif images == "makepass.png":
             print(colored("[/] Running makepass.png!!",'green'))
             if loc_xy == (405, 247):
@@ -217,6 +232,12 @@ def checklistbar(images):
             else:
                 print(colored("[X] no check checkprivate.png!!",'red'))
                 return 
+                
+        txt = open("gmail.txt","a")
+        user = getname + word + "@gmail.com || " + password + "\n"
+        txt.write(user)
+        print(user)
+        txt.close()
 save()
 checklistbar(images[0]) 
 save() 
@@ -239,6 +260,8 @@ save()
 checklistbar(images[9])
 save() 
 checklistbar(images[10])
+save() 
+checklistbar(images[11])
   
 
      
