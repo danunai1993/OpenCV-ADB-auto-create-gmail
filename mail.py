@@ -35,14 +35,16 @@ def save():
 
 
 
-images = ["listbar.png","addaccount.png","google2.png","makeaccbtn.png","makeacc.png"]
+images = ["listbar.png","addaccount.png","google2.png","makeaccbtn.png","makeacc.png",
+            "dateacc.png","makeuser.png","makepass.png"]
 def checklistbar(images):
         img = cv2.resize(cv2.imread("screenshotphone.png",0), (0, 0), fx=0.4, fy=0.4)
         template = cv2.resize(cv2.imread(images,0), (0, 0), fx=0.8, fy=0.8)
         h,w = template.shape
         img2 = img.copy()
         
-        if images == "makeacc.png": 
+        #if images == "makeacc.png" or images == "dateacc.png" or images == "makeuser.png": 
+        if images in ["makeacc.png","dateacc.png","makeuser.png","makepass.png"]:
             print(colored("[/] cv2.TM_CCOEFF!!",'green'))
             result = cv2.matchTemplate(img2, template, cv2.TM_CCOEFF)
             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
@@ -127,27 +129,61 @@ def checklistbar(images):
             else:
                 print(colored("[X] no check makeacc.png!!",'red'))
                 return        
-        
-
-        
-        
-
-
-def checkaddaccount(images):
-        img = cv2.imread("screenshotphone.png",0)
-        template = cv2.imread(images,0)
-        h,w = template.shape
-        img2 = img.copy()
-        result = cv2.matchTemplate(img2, template, cv2.TM_SQDIFF_NORMED)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-            
-        listbar = (min_loc[0]+ w, min_loc[1]+h)
-        print(listbar)
-        
-        
-        
-
-       
+        elif images == "dateacc.png":
+            print(colored("[/] Running dateacc.png!!",'green'))
+            if loc_xy == (344, 227):
+                print(colored("[/] working dateacc.png!!",'green'))
+                device.shell(f"input tap 161 721")#กดปุ่มกรอกวันที่
+                time.sleep(1.5)       
+                device.shell(f"input text {day}")
+                time.sleep(1.5)
+                device.shell(f"input tap 514 729")#กดปุ่มเดือน
+                time.sleep(1.5)
+                device.shell(f"input tap 226 708")#เลือกเดือน
+                time.sleep(1.5)
+                device.shell(f"input tap 803 726")#กดปุ่มกรอกปี
+                time.sleep(1.5)
+                device.shell(f"input text {year}")
+                time.sleep(1.5)
+                device.shell(f"input tap 302 941")#กดปุ่มเพศ
+                time.sleep(1.5)
+                device.shell(f"input tap 267 1193")#เลือกเพศ
+                time.sleep(1.5)
+                device.shell(f"input tap 879 2021")#กดปุ่มถัดไป
+                time.sleep(1.5)
+            else:
+                print(colored("[X] no check dateacc.png!!",'red'))
+                return 
+        elif images == "makeuser.png":
+            print(colored("[/] Running makeuser.png!!",'green'))
+            if loc_xy == (365, 187):
+                print(colored("[/] working makeuser.png!!",'green'))
+                device.shell(f"input tap 256 1036")#คลิกสร้างที่อยู่ gmail เอง
+                time.sleep(1.5)
+                device.shell(f"input tap 184 1266")#กดที่กรอก
+                time.sleep(1.5)
+                format = getname+word+str(day)
+                device.shell(f"input text {format}")#กรอกgmail
+                print(format)
+                time.sleep(1.5)
+                device.shell(f"input tap 865 1126")  #กดถัดไป
+                time.sleep(1.5)
+            else:
+                print(colored("[X] no check makeuser.png!!",'red'))
+                return
+        elif images == "makepass.png":
+            print(colored("[/] Running makepass.png!!",'green'))
+            if loc_xy == (405, 247):
+                print(colored("[/] working makepass.png!!",'green'))
+                device.shell(f"input text {password}")#กรอก pass
+                print(password)
+                time.sleep(1.5)
+                device.shell(f"input tap 235 1119")#กดที่ว่าง
+                time.sleep(1.5)
+                device.shell(f"input tap 872 2026") #กดถัดไป 
+            else:
+                print(colored("[X] no check makeuser.png!!",'red'))
+                return          
 
 save()
 checklistbar(images[0]) 
@@ -159,6 +195,12 @@ save()
 checklistbar(images[3]) 
 save() 
 checklistbar(images[4]) 
+save() 
+checklistbar(images[5]) 
+save() 
+checklistbar(images[6]) 
+save() 
+checklistbar(images[7])
   
 
      
