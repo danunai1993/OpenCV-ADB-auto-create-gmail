@@ -14,7 +14,7 @@ else:
 
     print('Enter your amount gmail? : ')
     amount = input()
-    
+
     words = [
                 "manste","noxze","ssad","medsw","lovex","loxsz","meyous","amsazte","sdrsd","opesee",
                 "gorsd","messer","lnwst","tomsa","goodstr","saddss","eieisa","kuyria","noiza","newop",
@@ -30,7 +30,7 @@ else:
     day = random.randint(0,28)              #สุ่มวันเกิด
     year = random.randint(1990,2000)        #สุ่มปีเกิด
     password = passwords                    #สุ่มรหัส
-
+    format = getname+word+str(day)
     try:
         def save():
             with open("screenshotphone.png","wb")as f:
@@ -181,8 +181,7 @@ else:
             elif images == "inputacc.png":
                 print(colored("[/] Running inputacc.png!!",'green'))
                 if loc_xy == (313, 182):
-                    print(colored("[/] working inputacc.png!!",'green'))
-                    format = getname+word+str(day)
+                    print(colored("[/] working inputacc.png!!",'green'))                    
                     device.shell(f"input text {format}")#กรอกgmail
                     print(format)
                     time.sleep(1.5)
@@ -240,11 +239,12 @@ else:
                     print(colored("[X] no check checkprivate.png!!",'red'))
                     return 
 
-            txt = open("gmail.txt","a")
-            user = getname + word + "@gmail.com || " + password + "\n"
-            txt.write(user)
-            print(user)
-            txt.close()
+    txt = open("gmail.txt","a")
+    user = format + "@gmail.com || " + password + "\n"
+    txt.write(user)
+    print(user)
+    txt.close()
+
 try:
     while amount:
         save()
