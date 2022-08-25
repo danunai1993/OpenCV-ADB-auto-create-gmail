@@ -10,9 +10,11 @@ try:
     print(colored('[/] Connecting Driver Successfuly', 'green'))
 except Exception as e:
     print(colored('[X] No connection!! pls Connect your device', 'red'))
-finally:
-    
+else:
 
+    print('Enter your amount gmail? : ')
+    amount = input()
+    
     words = [
                 "manste","noxze","ssad","medsw","lovex","loxsz","meyous","amsazte","sdrsd","opesee",
                 "gorsd","messer","lnwst","tomsa","goodstr","saddss","eieisa","kuyria","noiza","newop",
@@ -42,7 +44,7 @@ finally:
     images = ["listbar.png","addaccount.png","google2.png","makeaccbtn.png","makeacc.png",
                 "dateacc.png","makeuser.png","inputacc.png","makepass.png","phonenum.png",
                 "checkconfirm.png","checkprivate.png"]
-
+    
     def checklistbar(images):
             img = cv2.resize(cv2.imread("screenshotphone.png",0), (0, 0), fx=0.4, fy=0.4)
             template = cv2.resize(cv2.imread(images,0), (0, 0), fx=0.8, fy=0.8)
@@ -244,7 +246,7 @@ finally:
             print(user)
             txt.close()
 try:
-    while 5:
+    while amount:
         save()
         checklistbar(images[0]) 
         save() 
